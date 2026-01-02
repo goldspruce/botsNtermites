@@ -1,0 +1,2 @@
+# botsNtermites
+Non-agentic bots
