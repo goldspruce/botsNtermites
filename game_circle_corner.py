@@ -3,6 +3,8 @@ import math     # Import math library for calculating distances and angles
 import random   # Import library to generate random numbers (for positions)
 import sys      # Import system library to help exit the program cleanly
 import time     # Import library to track how many seconds pass
+import os       # Import operating system library to manage folders and files
+from datetime import datetime # Import datetime to timestamp the folder
 
 # =============================================================================
 # SECTION 1: GLOBAL CONFIGURATION
@@ -45,6 +47,15 @@ ROBOT_SPEED_PUSH = 1.0            # How fast robots move when pushing a block
 PUSH_FORCE = 1.0                  # How hard they push
 BLOCK_FRICTION = 0.90             # Friction makes blocks slow down after being pushed
 
+# -- OUTPUT SETTINGS --
+# Generate a timestamp string: Year-Month-Day_Hour-Minute
+timestamp_str = datetime.now().strftime("%Y-%m-%d_%H-%M")
+OUTPUT_FOLDER = f"simulation_output_{timestamp_str}"
+
+if not os.path.exists(OUTPUT_FOLDER):
+    os.makedirs(OUTPUT_FOLDER)
+    print(f"Created output folder: {OUTPUT_FOLDER}")
+
 # Calculate the longest possible distance in the room (Corner to Corner)
 MAX_POSSIBLE_DIST = math.hypot(WIDTH - LIGHT_POS[0], HEIGHT - LIGHT_POS[1])
 
@@ -52,6 +63,12 @@ MAX_POSSIBLE_DIST = math.hypot(WIDTH - LIGHT_POS[0], HEIGHT - LIGHT_POS[1])
 # SECTION 2: HELPER FUNCTIONS
 # "def" creates a new command (function) we can use later.
 # =============================================================================
+
+# Helper for saving images
+def save_screenshot(screen, filename):
+    path = os.path.join(OUTPUT_FOLDER, filename)
+    pygame.image.save(screen, path)
+    print(f"Screenshot saved: {path}")
 
 # This function calculates a random starting position for a Robot.
 def get_robot_spawn_pos():
@@ -319,6 +336,8 @@ def show_results_screen(screen, blocks, duration):
     avg_start = total_start_dist / len(blocks)
     avg_end = total_end_dist / len(blocks)
     avg_change = avg_end - avg_start
+    
+    screenshot_taken = False # <--- Flag to ensure we only save once in the loop
 
     # Loop to keep the window open until user closes it
     waiting = True
@@ -335,7 +354,9 @@ def show_results_screen(screen, blocks, duration):
         
         sign_str = "" if avg_change < 0 else ""
         draw_text(screen, f"Net Change:      {sign_str}{avg_change:.1f}%", 24, 30, 150, (200, 200, 200))
-        draw_text(screen, f"Time to Finish:  {duration:.1f} sec", 24, 30, 190)
+        
+        # <--- CHANGED: RESOLVE TIME TO 1 SEC
+        draw_text(screen, f"Time to Finish:  {int(duration)} sec", 24, 30, 190)
         
         if avg_change > 0:
             verdict = "AS EXPECTED: Pushed blocks away from entrance"
@@ -359,6 +380,12 @@ def show_results_screen(screen, blocks, duration):
         draw_text(screen, "Press [Close Window] to exit.", 16, 30, HEIGHT - 30, (100, 100, 100))
 
         pygame.display.flip()
+        
+        # <--- SAVE FINAL SCREENSHOT (Metrics)
+        if not screenshot_taken:
+            save_screenshot(screen, "04_final_metrics.png")
+            screenshot_taken = True
+            
         pygame.time.Clock().tick(15)
 
 # =============================================================================
@@ -370,7 +397,7 @@ def main():
     pygame.init()                # Initialize the graphics system
     pygame.font.init()           # Initialize the font system
     screen = pygame.display.set_mode((WIDTH, HEIGHT)) # Create the window
-    pygame.display.set_caption(f"Enactivism: Safety in the Shadows")
+    pygame.display.set_caption(f"Braitenberg Vehicle Zero: Brownian Bots")
     clock = pygame.time.Clock()  # Create a timer
 
     # -- SPAWN SETUP --
@@ -388,6 +415,10 @@ def main():
     start_time = None
     final_time = None 
     
+    # <--- SCREENSHOT TIMERS
+    last_screenshot_time = 0 
+    start_screenshot_taken = False
+    
     running = True            # Is the program window open?
     simulation_active = True  # Is the simulation mode on (vs report mode)?
     simulation_started = False # Has the user pressed ENTER yet?
@@ -403,6 +434,7 @@ def main():
                     if event.key == pygame.K_RETURN: # User pressed ENTER to start
                         simulation_started = True
                         start_time = time.time()
+                        last_screenshot_time = start_time # Reset timer
                 else:
                     if event.key == pygame.K_RETURN: # User pressed ENTER to end early
                         simulation_active = False 
@@ -425,6 +457,7 @@ def main():
                         safe_robots += 1
                 
                 # Check Victory Condition
+                # if final_time is not None, the timer stops updating
                 if safe_robots == NUM_ROBOTS and final_time is None:
                     final_time = time.time() - start_time
             
@@ -440,6 +473,17 @@ def main():
 
             pygame.draw.circle(screen, LIGHT_COLOR, LIGHT_POS, LIGHT_RADIUS_VISUAL)
             
+            # <--- DRAW TIMER NEAR LIGHT
+            if simulation_started:
+                # If robots are done (final_time set), freeze timer. Otherwise show elapsed.
+                if final_time is not None:
+                    time_to_show = final_time
+                else:
+                    time_to_show = time.time() - start_time
+                
+                # CHANGED: Use int() to resolve to 1 sec
+                draw_text(screen, f"{int(time_to_show)}s", 20, 10, 80, (255, 255, 0))
+
             # Draw Blocks
             for b in blocks: 
                 if b.shape == "CIRCLE":
@@ -468,9 +512,29 @@ def main():
 
             # Flip the display (update screen)
             pygame.display.flip()
+            
+            # <--- SCREENSHOT LOGIC (During Simulation)
+            
+            # 1. Start Screen (Once)
+            if simulation_started and not start_screenshot_taken:
+                save_screenshot(screen, "01_sim_start.png")
+                start_screenshot_taken = True
+                
+            # 2. Every 5 Seconds
+            if simulation_started:
+                current_time = time.time()
+                if current_time - last_screenshot_time >= 5:
+                    timestamp = int(current_time - start_time)
+                    save_screenshot(screen, f"02_progress_{timestamp}s.png")
+                    last_screenshot_time = current_time
+
             clock.tick(60) # Limit to 60 Frames Per Second
         
         else:
+            # <--- SCREENSHOT LOGIC (End of Simulation)
+            # Save the state of robots/blocks one last time before switching to report
+            save_screenshot(screen, "03_sim_finished.png")
+            
             # If simulation_active is False, show the report
             if final_time is not None:
                 duration_to_show = final_time
