@@ -1,0 +1,22 @@
+EXPERIMENT LOG - 2026-01-26_10-49-20
+========================================
+Gen 1 | Score: 0.41298
+Gen 2 | Score: 0.43164
+Gen 3 | Score: 0.45015
+Gen 4 | Score: 0.46470
+Gen 5 | Score: 0.47359
+Gen 6 | Score: 0.49254
+Gen 7 | Score: 0.52249
+Gen 8 | Score: 0.54042
+Gen 9 | Score: 0.56598
+Gen 10 | Score: 0.61217
+Gen 11 | Score: 0.65623
+Gen 12 | Score: 0.67694
+Gen 13 | Score: 0.77370
+Gen 14 | Score: 0.77825
+Gen 15 | Score: 0.81763
+Gen 16 | Score: 0.81853
+Gen 17 | Score: 0.82844
+Gen 18 | Score: 0.82867
+Gen 19 | Score: 0.82352
+Gen 20 | Score: 0.82367

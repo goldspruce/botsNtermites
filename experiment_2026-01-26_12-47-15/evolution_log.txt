@@ -1,0 +1,105 @@
+EXPERIMENT LOG - 2026-01-26_12-47-15
+Grid: 50x50 | Termites: 100
+Genome Format: [0-4 Pick Probs] [5-9 Drop Probs]
+========================================
+
+GENERATION 1
+Best Score: 0.429911 (Species #7)
+PICK Genes (0-4 neighbors): [0.87, 0.15, 0.84, 0.28, 0.73]
+DROP Genes (0-4 neighbors): [0.02, 0.10, 0.84, 0.68, 0.55]
+----------------------------------------
+GENERATION 2
+Best Score: 0.453171 (Species #13)
+PICK Genes (0-4 neighbors): [0.87, 0.15, 0.84, 0.28, 0.73]
+DROP Genes (0-4 neighbors): [0.02, 0.10, 0.84, 0.87, 0.55]
+----------------------------------------
+GENERATION 3
+Best Score: 0.495119 (Species #11)
+PICK Genes (0-4 neighbors): [0.87, 0.15, 0.84, 0.28, 0.73]
+DROP Genes (0-4 neighbors): [0.02, 0.00, 0.84, 0.68, 0.47]
+----------------------------------------
+GENERATION 4
+Best Score: 0.509706 (Species #15)
+PICK Genes (0-4 neighbors): [0.87, 0.15, 0.84, 0.28, 0.73]
+DROP Genes (0-4 neighbors): [0.02, 0.00, 0.99, 0.87, 0.55]
+----------------------------------------
+GENERATION 5
+Best Score: 0.515011 (Species #13)
+PICK Genes (0-4 neighbors): [0.87, 0.15, 0.84, 0.28, 0.60]
+DROP Genes (0-4 neighbors): [0.02, 0.00, 0.99, 0.87, 0.55]
+----------------------------------------
+GENERATION 6
+Best Score: 0.594082 (Species #5)
+PICK Genes (0-4 neighbors): [0.87, 0.15, 0.84, 0.28, 0.73]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 1.00, 0.87, 0.55]
+----------------------------------------
+GENERATION 7
+Best Score: 0.608646 (Species #14)
+PICK Genes (0-4 neighbors): [0.87, 0.35, 0.84, 0.28, 0.60]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.55]
+----------------------------------------
+GENERATION 8
+Best Score: 0.620911 (Species #0)
+PICK Genes (0-4 neighbors): [0.87, 0.35, 0.84, 0.28, 0.60]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.55]
+----------------------------------------
+GENERATION 9
+Best Score: 0.627823 (Species #18)
+PICK Genes (0-4 neighbors): [0.87, 0.35, 0.86, 0.28, 0.60]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.61]
+----------------------------------------
+GENERATION 10
+Best Score: 0.631726 (Species #4)
+PICK Genes (0-4 neighbors): [0.87, 0.35, 0.84, 0.28, 0.60]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 1.00, 0.87, 0.68]
+----------------------------------------
+GENERATION 11
+Best Score: 0.631276 (Species #5)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 0.86, 0.28, 0.45]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.61]
+----------------------------------------
+GENERATION 12
+Best Score: 0.651881 (Species #15)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 0.86, 0.16, 0.45]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.61]
+----------------------------------------
+GENERATION 13
+Best Score: 0.656773 (Species #0)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 0.86, 0.16, 0.45]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.61]
+----------------------------------------
+GENERATION 14
+Best Score: 0.667131 (Species #13)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 1.00, 0.16, 0.31]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.61]
+----------------------------------------
+GENERATION 15
+Best Score: 0.680734 (Species #19)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 1.00, 0.16, 0.31]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.61]
+----------------------------------------
+GENERATION 16
+Best Score: 0.702401 (Species #19)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 1.00, 0.16, 0.16]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.61]
+----------------------------------------
+GENERATION 17
+Best Score: 0.704340 (Species #6)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 1.00, 0.16, 0.16]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.62]
+----------------------------------------
+GENERATION 18
+Best Score: 0.744547 (Species #9)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 1.00, 0.16, 0.01]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.62]
+----------------------------------------
+GENERATION 19
+Best Score: 0.756102 (Species #15)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 1.00, 0.16, 0.00]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.61]
+----------------------------------------
+GENERATION 20
+Best Score: 0.760369 (Species #8)
+PICK Genes (0-4 neighbors): [1.00, 0.35, 1.00, 0.16, 0.01]
+DROP Genes (0-4 neighbors): [0.00, 0.00, 0.99, 0.87, 0.62]
+----------------------------------------
