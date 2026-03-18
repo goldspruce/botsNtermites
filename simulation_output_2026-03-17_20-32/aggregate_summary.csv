@@ -1,0 +1,19 @@
+Trials with Mean Rock Displacement <= 0,None
+
+Total Trials,8
+Avg Sim Duration (s),24.16
+Mean Rock Displacement (px),36.73
+Mean of Intra-Run Bot Stop SDs (s),6.46
+SD of Pooled Bot Stop Times (s),9.0
+Mean of Intra-Run Rock Dist SDs (px),54.61
+SD of Pooled Rock Displacements (px),57.51
+
+Trial,Duration,Mean Rock Displacement,Bot Stop SD,Rock Displacement SD
+1,27.92,33.06,4.93,49.12
+2,17.17,28.5,4.25,52.03
+3,20.8,30.55,5.19,56.95
+4,19.68,39.0,6.22,68.29
+5,41.12,51.84,14.23,70.49
+6,8.28,5.64,2.0,28.85
+7,20.97,36.59,4.64,45.45
+8,37.32,68.66,10.2,65.73
