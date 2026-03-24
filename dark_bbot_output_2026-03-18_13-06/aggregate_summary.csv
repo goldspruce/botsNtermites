@@ -1,0 +1,40 @@
+aggregate_summary.csv
+
+Target Mean Stop Time (s),20.89
+Target SD of Stop Times (s),24.04
+
+Trials with Mean Rock Displacement <= 0,3
+Specific Rock Trial IDs,"2, 3, 4"
+
+Trials with Mean BBot Displacement <= 0,5
+Specific BBot Trial IDs,"4, 5, 7, 8, 10"
+
+Total Trials,10
+
+,Mean of Pooled Rock Displacement (px),16.17
+,SD of Above (px),142.06
+,Mean of Intra-Run Rock Displacement (px),16.17
+,SD of Above (px),31.45
+
+,Mean of Pooled Bbot Displacements (px),3.29
+,SD of Above (px),246.42
+,Mean of Intra-Run Bbot Displacements (px),3.29
+,SD of Above (px),44.2
+
+,Mean of Pooled Bbot Stop Times (s),29.25
+,SD of Above (s),17.71
+,Mean of Intra-Run Stop Time Means (s),29.25
+,SD of Above (s),1.98
+
+
+Trial,Duration,Mean Rock Displacement,Rock Displacement SD,Mean BBot Displacement,BBot Displacement SD,Mean BBot Stop Time,BBot Stop SD
+1,72.33,16.43,144.14,50.62,263.97,29.4,17.45
+2,62.95,-51.08,135.98,31.87,257.11,28.96,15.88
+3,85.9,-1.15,129.15,11.83,227.21,26.87,19.69
+4,81.72,-7.27,116.44,-33.94,223.82,31.15,18.72
+5,70.2,15.98,168.58,-23.1,233.79,31.06,18.23
+6,69.68,46.83,139.39,71.11,247.57,24.99,17.16
+7,75.98,56.17,172.41,-25.03,258.61,29.09,17.43
+8,75.15,10.03,132.07,-73.51,252.68,29.63,18.79
+9,66.6,39.94,128.12,33.16,251.37,30.91,15.44
+10,67.97,35.85,145.14,-10.07,230.38,30.49,18.5

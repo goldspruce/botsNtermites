@@ -1,0 +1,14 @@
+trial_01_metrics.csv
+
+Target Mean Stop Time (s),20.89
+Target SD of Stop Times (s),24.04
+
+Duration (s),72.33
+Actual Mean Stop Time (s),29.4
+Actual SD of Stop Times (s),17.45
+
+Mean Rock Displacement (px),16.43
+Rock Displacement SD (px),144.14
+
+Mean BBot Displacement (px),50.62
+BBot Displacement SD (px),263.97

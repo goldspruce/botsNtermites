@@ -1,6 +1,29 @@
 # =============================================================================
 # IMPORTS: Bringing in outside toolboxes so we don't have to write everything from scratch.
 # =============================================================================
+
+
+# =============================================================================
+# ENV FIX: Attempting to suppress macOS SDL2 conflict warnings
+# =============================================================================
+import os
+import sys
+os.environ['PYTHON_APPLE_ALLOW_SDL2_MIX'] = '1'
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1' # Cleans up the console a bit more
+
+# =============================================================================
+# IMPORTS: Bringing in outside toolboxes
+# =============================================================================
+import pygame       #
+import math         #
+import random       #
+import csv          #
+import statistics   #
+from datetime import datetime   #
+import matplotlib.pyplot as plt #
+import cv2          #
+import numpy as np  #
+
 import pygame       # Pygame is a library for making 2D games and drawing graphics.
 import math         # Gives us math tools, like trigonometry (sin/cos) and calculating distances.
 import random       # Lets us generate random numbers so the bbots don't always do the exact same thing.
@@ -232,33 +255,45 @@ def check_collisions(bbots, blocks):
                 b1.x += nx * 2.0; b1.y += ny * 2.0
                 b2.x -= nx * 2.0; b2.y -= ny * 2.0
 
+# ... [Remaining Constants and Classes preserved from original] ...
+
 # =============================================================================
 # SECTION 3: EXPORTING, REPORTING & PLOTTING
 # =============================================================================
 
-def export_trial1_metrics(blocks, bbots, duration, mean_rock_displacement, sd_rock_displacement, mean_bbot_displacement, sd_bbot_displacement, output_folder):
-    """Saves a detailed, individual breakdown of exactly what happened in Trial 1."""
-    filename = os.path.join(output_folder, "trial_01_metrics.csv")
-    with open(filename, mode='w', newline='') as file:
-        writer = csv.writer(file) 
-        
-        writer.writerow(["--- TRIAL 1 ROCK DATA ---"])
-        writer.writerow(["Rock ID", "Start Dist (px)", "End Dist (px)", "Net Displacement (px)"])
-        for i, b in enumerate(blocks):
-            d_start = get_distance_pixels(b.start_x, b.start_y)
-            d_end = get_distance_pixels(b.x, b.y)
-            writer.writerow([i+1, round(d_start, 2), round(d_end, 2), round(d_end - d_start, 2)])
-            
-        writer.writerow([]) 
-        
-        writer.writerow(["--- TRIAL 1 BBOT DATA ---"])
-        writer.writerow(["BBot ID", "Stop Time (sec)", "Start Dist (px)", "End Dist (px)", "Net Displacement (px)"])
-        for i, bbot in enumerate(bbots):
-            final_time = bbot.stop_time if bbot.stop_time else duration
-            d_start = get_distance_pixels(bbot.start_x, bbot.start_y)
-            d_end = get_distance_pixels(bbot.x, bbot.y)
-            writer.writerow([i+1, round(final_time, 2), round(d_start, 2), round(d_end, 2), round(d_end - d_start, 2)])
+def export_aggregate_summary(all_results, output_folder, final_stats):
+    """Saves the master summary incorporating intra-run and pooled statistics."""
+    filename = os.path.join(output_folder, "aggregate_summary.csv")
 
+    # Flag any anomalous trials where the net displacement was backwards (negative)
+    # Preserving comments: Identify trials with negative displacement
+    bad_rock_trials = [str(r['trial']) for r in all_results if r['mean_rock_displacement'] <= 0]
+    bad_bbot_trials = [str(r['trial']) for r in all_results if r['mean_bbot_displacement'] <= 0]
+
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        
+        writer.writerow(["aggregate_summary.csv"])
+        writer.writerow([])
+        
+        # --- NEW REPORTING: Number of trials < 0 and which trials they were ---
+        writer.writerow(["Number of Trials with Mean Rock Displacement <= 0", len(bad_rock_trials)])
+        writer.writerow(["Trials with Mean Rock Displacement <= 0", ", ".join(bad_rock_trials) if bad_rock_trials else "None"])
+        writer.writerow([])
+        writer.writerow(["Number of Trials with Mean BBot Displacement <= 0", len(bad_bbot_trials)])
+        writer.writerow(["Trials with Mean BBot Displacement <= 0", ", ".join(bad_bbot_trials) if bad_bbot_trials else "None"])
+        writer.writerow([])
+        
+        writer.writerow(["Total Trials", len(all_results)])
+        writer.writerow([])
+        
+        # Rock Displacement
+        writer.writerow(["", "Mean of Pooled Rock Displacement (px)", round(final_stats['m_pool_rock'], 2)])
+        writer.writerow(["", "SD of Above (px)", round(final_stats['sd_pool_rock'], 2)])
+        writer.writerow(["", "Mean of Intra-Run Rock Displacement (px)", round(final_stats['m_intra_rock'], 2)])
+        writer.writerow(["", "SD of Above (px)", round(final_stats['sd_intra_rock'], 2)])
+        writer.writerow([])
+        
 def export_aggregate_summary(all_results, output_folder, final_stats):
     """Saves the master summary incorporating intra-run and pooled statistics."""
     filename = os.path.join(output_folder, "aggregate_summary.csv")
@@ -273,9 +308,14 @@ def export_aggregate_summary(all_results, output_folder, final_stats):
         writer.writerow(["aggregate_summary.csv"])
         writer.writerow([])
         
-        writer.writerow(["Trials with Mean Rock Displacement <= 0", ", ".join(bad_rock_trials) if bad_rock_trials else "None"])
-        writer.writerow(["Trials with Mean BBot Displacement <= 0", ", ".join(bad_bbot_trials) if bad_bbot_trials else "None"])
+        # --- MODIFIED: Reporting the NUMBER of anomalous trials alongside WHICH trials they were ---
+        writer.writerow(["Number of Trials with Mean Rock Displacement <= 0", len(bad_rock_trials)])
+        writer.writerow(["Specific Trials with Mean Rock Displacement <= 0", ", ".join(bad_rock_trials) if bad_rock_trials else "None"])
         writer.writerow([])
+        writer.writerow(["Number of Trials with Mean BBot Displacement <= 0", len(bad_bbot_trials)])
+        writer.writerow(["Specific Trials with Mean BBot Displacement <= 0", ", ".join(bad_bbot_trials) if bad_bbot_trials else "None"])
+        writer.writerow([])
+        
         writer.writerow(["Total Trials", len(all_results)])
         writer.writerow([])
         
@@ -361,7 +401,7 @@ def ui_get_num_trials(screen):
                     input_text += event.unicode 
 
         screen.fill(BG_COLOR) 
-        draw_text(screen, "--- BRAITENBERG VERSION ZERO BROWNIAN BOT (BBOT) ---", 20, WIDTH//2 - 260, HEIGHT//2 - 60, (255, 215, 0))
+        draw_text(screen, "BRAITENBERG VERSION ZERO BROWNIAN BOT (BBOT)", 20, WIDTH//2 - 260, HEIGHT//2 - 60, (255, 215, 0))
         draw_text(screen, "Enter number of trials to simulate:", 20, WIDTH//2 - 140, HEIGHT//2 - 20)
         draw_text(screen, input_text + "_", 32, WIDTH//2 - 20, HEIGHT//2 + 20, (100, 255, 100))
         pygame.display.flip() 
