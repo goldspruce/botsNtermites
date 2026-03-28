@@ -1,0 +1,14 @@
+trial_01_metrics.csv
+
+Duration (Steps),1106
+Duration (Video Seconds),18.433333333333334
+Mean Stop Time (steps),430.34
+SD of Stop Times (steps),306.81601280618605
+Mean Stop Time (s),7.1723333333333334
+SD of Stop Times (s),5.113600213436434
+
+Mean Rock Displacement (px),17.07823679735438
+Rock Displacement SD (px),27.37957353431827
+
+Mean BBot Displacement (px),-47.30074251344089
+BBot Displacement SD (px),140.20850337404482
