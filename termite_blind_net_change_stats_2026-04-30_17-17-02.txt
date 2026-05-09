@@ -1,0 +1,23 @@
+=======================================================
+               STATISTICAL ANALYSIS               
+=======================================================
+NULL HYPOTHESIS (H0): There is no net change in spatial order.
+The mean of the Delta scores (Final - Initial) equals zero.
+
+BLINDED (Control) GROUP [N=10000]
+  Mean Initial Score:  0.2996
+  Mean Final Score:    0.2776
+  Mean Net Change (Δ): -0.0220
+  Std Dev of Change:   0.0144
+
+ONE-SAMPLE T-TEST RESULTS (Testing Δ against 0):
+  t-statistic: -153.2431
+  p-value:     < 0.0000000001 (Effectively 0)
+
+CONCLUSION: We REJECT the Null Hypothesis.
+The blinded termites significantly DECREASED order (smearing).
+-------------------------------------------------------
+Data saved to:
+  - termite_blind_net_change_data_2026-04-30_17-17-02.csv
+  - termite_blind_net_change_stats_2026-04-30_17-17-02.txt
+=======================================================

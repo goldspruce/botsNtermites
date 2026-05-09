@@ -1,0 +1,24 @@
+=======================================================
+               STATISTICAL ANALYSIS               
+=======================================================
+NULL HYPOTHESIS (H0): There is no net change in spatial order.
+The mean of the Delta scores (Final - Initial) equals zero.
+
+ACTIVE (Stigmergic) GROUP [N=10000]
+  Mean Initial Score: 0.2999
+  Mean Final Score:   0.5087
+  Mean Net Change (Δ): 0.2089
+  Std Dev of Change:   0.0165
+
+ONE-SAMPLE T-TEST RESULTS (Testing Δ against 0):
+  t-statistic: 1264.5843
+  p-value:     < 0.0000000001 (Effectively 0)
+
+CONCLUSION: We REJECT the Null Hypothesis.
+The active termites produce a statistically significant
+positive net increase in the order of the environment.
+-------------------------------------------------------
+Data saved to:
+  - termite_net_change_data_2026-04-30_17-08-21.csv
+  - termite_net_change_stats_2026-04-30_17-08-21.txt
+=======================================================

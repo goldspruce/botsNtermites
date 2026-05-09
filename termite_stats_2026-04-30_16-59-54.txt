@@ -1,0 +1,26 @@
+==================================================
+               STATISTICAL ANALYSIS               
+==================================================
+NULL HYPOTHESIS (H0): Termite structures are indistinguishable
+from random spatial diffusion (Active = Control).
+
+NOTE: Analysis is performed on the DELTA (Final Score - Initial Score)
+to eliminate baseline noise from randomly generated starting grids.
+
+ACTIVE (Stigmergic) GROUP [N=10000]
+  Mean Delta Score: 0.2090
+  Std Dev:          0.0169
+
+CONTROL (Blind) GROUP     [N=10000]
+  Mean Delta Score: -0.0223
+  Std Dev:          0.0141
+
+T-TEST RESULTS:
+  t-statistic: 1051.7230
+  p-value:     < 0.0000000001 (Effectively 0)
+
+--------------------------------------------------
+Data saved to:
+  - termite_raw_data_2026-04-30_16-59-54.csv
+  - termite_stats_2026-04-30_16-59-54.txt
+==================================================
